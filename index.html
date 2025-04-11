@@ -5,24 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 대학생활 공간</title>
     <style>
-        body.dark-mode {
-        background-color: #121212;
-        color: #f1f1f1;
-    }
-    body.dark-mode nav, body.dark-mode .card {
-        background-color: #1e1e1e;
-        color: #f1f1f1;
-    }
-    body.dark-mode .card-header {
-        background: linear-gradient(135deg, #444, #666);
-    }
-    body.dark-mode a {
-        color: #ffd166;
-    }
-    body.dark-mode nav ul li a:hover {
-        background-color: #666;
-        color: white;
-    }
         :root {
             --primary: #6667AB;
             --secondary: #F78CA0;
@@ -31,56 +13,60 @@
             --dark: #212529;
             --success: #7FB069;
         }
-        
+
+        body.dark-mode {
+            background-color: #121212;
+            color: #f1f1f1;
+        }
+        body.dark-mode nav, body.dark-mode .card {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+        }
+        body.dark-mode .card-header {
+            background: linear-gradient(135deg, #444, #666);
+        }
+        body.dark-mode a {
+            color: #ffd166;
+        }
+        body.dark-mode nav ul li a:hover {
+            background-color: #666;
+            color: white;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background-color: var(--light);
             color: var(--dark);
             line-height: 1.6;
         }
-        
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            border-radius: 0 0 30px 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-        
+
         nav {
             background-color: white;
             padding: 1rem;
             border-radius: 50px;
-            margin: -25px auto 20px;
+            margin: 1rem auto;
             max-width: 80%;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             position: relative;
             z-index: 10;
         }
-        
+
         nav ul {
             display: flex;
             justify-content: center;
             list-style: none;
         }
-        
+
         nav ul li {
             margin: 0 15px;
         }
-        
+
         nav ul li a {
             text-decoration: none;
             color: var(--dark);
@@ -89,74 +75,31 @@
             padding: 8px 16px;
             border-radius: 20px;
         }
-        
+
         nav ul li a:hover {
             background-color: var(--primary);
             color: white;
         }
-        
-        section {
-            padding: 2rem 0;
-        }
-        
-        .greeting {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
+
         .card {
             background-color: white;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             transition: transform 0.3s ease;
+            margin-bottom: 2rem;
         }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
+
         .card-header {
-            padding: 1.5rem;
+            padding: 1rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
         }
-        
+
         .card-body {
-            padding: 1.5rem;
+            padding: 1rem;
         }
-        
-        .news-item {
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .news-date {
-            color: var(--primary);
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .game-container {
-            margin-top: 2rem;
-            text-align: center;
-        }
-        
-        #game-canvas {
-            border: 2px solid var(--primary);
-            border-radius: 8px;
-            background-color: #fff;
-            max-width: 100%;
-        }
-        
+
         .button {
             background-color: var(--primary);
             color: white;
@@ -168,591 +111,92 @@
             transition: all 0.3s ease;
             margin: 10px 5px;
         }
-        
+
         .button:hover {
             background-color: var(--secondary);
             transform: translateY(-2px);
         }
-        
-        footer {
-            background-color: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            margin: 1rem 0;
-        }
-        
-        .social-links a {
-            margin: 0 10px;
-            color: white;
-            font-size: 1.5rem;
-        }
-        
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        
-        .gallery-item {
-            height: 150px;
-            background-color: #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.3s ease;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        
-        /* 테트리스 게임 스타일 */
-        #tetris-score {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        /* 반응형 스타일 */
-        @media (max-width: 768px) {
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            nav ul li {
-                margin: 8px 0;
-            }
-        }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>나의 대학생활 공간</h1>
-            <p>친구들과 함께하는 나만의 공간</p>
-        </div>
-    </header>
-    
-    <div class="container">
-        <nav>
-            <ul>
-                <li><a href="#home">홈</a></li>
-                <li><a href="#news">소식</a></li>
-                <li><a href="#games">게임</a></li>
-                <li><a href="#gallery">갤러리</a></li>
-                <li><a href="#contact">연락처</a></li>
-                <li>
-                    <button id="toggle-dark" class="button" style="padding: 6px 12px; font-size: 0.9rem;">🌙 다크모드</button>
-                </li>
-            </ul>
-        </nav>
-        
-        <section id="home">
-            <div class="greeting">
-                <h2>안녕하세요! 제 공간에 오신 것을 환영합니다 👋</h2>
-                <p>대학 생활, 취미, 그리고 일상을 공유하는 공간입니다.</p>
-            </div>
-            
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>자기소개</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>안녕하세요! 저는 대학에서 전자공학과를 전공하고 있는 주환수랍니다~ 
-                        인생 어떻게 살지 관심이 많은데요, 20대 청춘이 매우 아깝습니다... 세상이 밉다...</p>
-                        <p>이 웹사이트는 제 생각과 경험을 공유하고 친구들과 소통하기 위해 만들었어요. 
-                        다들 게임 한번씩 즐기고 랭킹 1위를 달성해보세요!!</p>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h3>최근 활동</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="news-item">
-                            <span class="news-date">2025.04.10</span>
-                            <h4>중간고사 완료!</h4>
-                            <p>드디어 중간고사 끝! 이제 잠시 쉬면서 새로운 프로젝트 준비할 예정.</p>
-                        </div>
-                        <div class="news-item">
-                            <span class="news-date">2025.04.01</span>
-                            <h4>새 학기 시작</h4>
-                            <p>새 학기가 시작되었습니다. 이번 학기 목표는 GPA 4.0 달성하기!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="ranking">
-            <h2>친구들 랭킹</h2>
-            <div class="card">
-                    <div class="card-body">
-                        <ol id="ranking-list">
-                <!-- 예시 데이터 -->
-                        </ol>
-                </div>
-            </div>
-        </section>
-        <section id="news">
-            <h2>최신 소식</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>학교 소식</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="news-item">
-                            <span class="news-date">2025.04.09</span>
-                            <h4>대학 축제 안내</h4>
-                            <p>5월 15일부터 17일까지 봄 축제가 열립니다. 다양한 공연과 부스 활동이 준비되어 있으니 많은 참여 바랍니다!</p>
-                        </div>
-                        <div class="news-item">
-                            <span class="news-date">2025.04.05</span>
-                            <h4>학과 MT 안내</h4>
-                            <p>4월 마지막 주에 학과 MT가 예정되어 있습니다. 많은 참여 부탁드려요!</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h3>개인 프로젝트</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="news-item">
-                            <span class="news-date">2025.04.11</span>
-                            <h4>웹사이트 오픈!</h4>
-                            <p>드디어 제 개인 웹사이트를 오픈했습니다. 앞으로 더 많은 콘텐츠로 찾아올게요.</p>
-                        </div>
-                        <div class="news-item">
-                            <span class="news-date">2025.03.20</span>
-                            <h4>새 프로젝트 시작</h4>
-                            <p>이번 학기 웹개발 수업에서 개인 프로젝트를 시작했어요. 기대해주세요!</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section id="games">
-            <h2>미니 게임</h2>
-            <p>지루할 때 한번 도전해보세요! 😊</p>
-            
-            <div class="game-container">
-                <div id="tetris-score">점수: 0</div>
-                <canvas id="game-canvas" width="300" height="400"></canvas>
-                <div>
-                    <button class="button" id="start-game">게임 시작</button>
-                    <button class="button" id="pause-game">일시정지</button>
-                </div>
-                <div class="game-instructions">
-                    <p>← → 키: 좌우 이동 | ↑ 키: 회전 | ↓ 키: 빠르게 내리기</p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="gallery">
-    <h2>갤러리</h2>
-    <p>일상과 특별한 순간들</p>
-    <div class="gallery">
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?landscape,mountain" alt="웅장한 자연">
-        </div>
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?forest,nature" alt="초록 자연">
-        </div>
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?city,night" alt="도시 야경">
-        </div>
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?party,friends" alt="친구들과의 파티">
-        </div>
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?celebration" alt="파티 순간">
-        </div>
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?library,study" alt="도서관에서 꿈을 위해 공부">
-        </div>
-    </div>
-</section>
+    <!-- 네비게이션 및 다크 모드 버튼 -->
+    <nav>
+        <ul>
+            <li><a href="#home">홈</a></li>
+            <li><a href="#news">소식</a></li>
+            <li><a href="#games">게임</a></li>
+            <li><a href="#gallery">갤러리</a></li>
+            <li><a href="#contact">연락처</a></li>
+            <li>
+                <button id="toggle-dark" class="button" style="padding: 6px 12px; font-size: 0.9rem;">🌙 다크모드</button>
+            </li>
+        </ul>
+    </nav>
 
-        
-        <section id="contact">
-            <h2>연락하기</h2>
-            <div class="card">
-                <div class="card-header">
-                    <h3>메시지 남기기</h3>
-                </div>
-                <div class="card-body">
-                    <form id="contact-form">
-                        <div style="margin-bottom: 1rem;">
-                            <label for="name" style="display: block; margin-bottom: 0.5rem;">이름:</label>
-                            <input type="text" id="name" name="name" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
-                        </div>
-                        <div style="margin-bottom: 1rem;">
-                            <label for="email" style="display: block; margin-bottom: 0.5rem;">이메일:</label>
-                            <input type="email" id="email" name="email" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
-                        </div>
-                        <div style="margin-bottom: 1rem;">
-                            <label for="message" style="display: block; margin-bottom: 0.5rem;">메시지:</label>
-                            <textarea id="message" name="message" rows="4" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;"></textarea>
-                        </div>
-                        <button type="submit" class="button">보내기</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </div>
-    
-    <footer>
-        <div class="container">
-            <p>© 2025 나의 대학생활 공간. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#" title="인스타그램">📸</a>
-                <a href="#" title="페이스북">👍</a>
-                <a href="#" title="유튜브">📹</a>
-                <a href="#" title="깃허브">💻</a>
+    <!-- 랭킹 섹션 -->
+    <section id="ranking">
+        <h2>게임 점수 랭킹</h2>
+        <div class="card">
+            <div class="card-body">
+                <form id="score-form" style="margin-bottom: 1rem;">
+                    <input type="text" id="player-name" placeholder="이름 입력" style="padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
+                    <input type="number" id="player-score" placeholder="점수 입력" style="padding: 6px; border: 1px solid #ccc; border-radius: 4px; width: 100px;">
+                    <button type="submit" class="button">등록</button>
+                </form>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="text-align: left;">
+                            <th style="padding: 8px; border-bottom: 2px solid #ccc;">등수</th>
+                            <th style="padding: 8px; border-bottom: 2px solid #ccc;">이름</th>
+                            <th style="padding: 8px; border-bottom: 2px solid #ccc;">점수</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-table"></tbody>
+                </table>
             </div>
         </div>
-    </footer>
+    </section>
 
     <script>
-         // 다크 모드 토글
-    const toggleBtn = document.getElementById('toggle-dark');
-    toggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ 라이트모드' : '🌙 다크모드';
-    });
-
-    // 간단한 랭킹 시스템 (샘플용)
-    const sampleRanks = [
-        { name: '지민', score: 1500 },
-        { name: '현우', score: 1200 },
-        { name: '수빈', score: 1000 },
-        { name: '예린', score: 800 },
-        { name: '태윤', score: 500 }
-    ];
-
-    const crownEmoji = [
-        '👑 (금왕관)',
-        '🥈 (은왕관)',
-        '🥉 (동왕관)'
-    ];
-
-    const listEl = document.getElementById('ranking-list');
-    sampleRanks.sort((a, b) => b.score - a.score).forEach((user, index) => {
-        const crown = crownEmoji[index] || '';
-        const li = document.createElement('li');
-        li.innerHTML = `${index + 1}등 ${crown} ${user.name} - ${user.score}점`;
-        listEl.appendChild(li);
-    });
-        // 테트리스 게임 구현
-        document.addEventListener('DOMContentLoaded', function() {
-            const canvas = document.getElementById('game-canvas');
-            const ctx = canvas.getContext('2d');
-            const scoreElement = document.getElementById('tetris-score');
-            const startButton = document.getElementById('start-game');
-            const pauseButton = document.getElementById('pause-game');
-            
-            // 테트리스 설정
-            const blockSize = 20;
-            const cols = canvas.width / blockSize;
-            const rows = canvas.height / blockSize;
-            let board = [];
-            let score = 0;
-            let gameInterval;
-            let currentPiece;
-            let isGameOver = false;
-            let isPaused = false;
-            
-            // 테트리스 블록 색상
-            const colors = [
-                null,
-                '#FF0D72', // I
-                '#0DC2FF', // J
-                '#0DFF72', // L
-                '#F538FF', // O
-                '#FF8E0D', // S
-                '#FFE138', // T
-                '#3877FF'  // Z
-            ];
-            
-            // 테트리스 블록 모양
-            const pieces = [
-                null,
-                [[0,0,0,0], [1,1,1,1], [0,0,0,0], [0,0,0,0]], // I
-                [[2,0,0], [2,2,2], [0,0,0]],                  // J
-                [[0,0,3], [3,3,3], [0,0,0]],                  // L
-                [[0,4,4], [0,4,4], [0,0,0]],                  // O
-                [[0,5,5], [5,5,0], [0,0,0]],                  // S
-                [[0,6,0], [6,6,6], [0,0,0]],                  // T
-                [[7,7,0], [0,7,7], [0,0,0]]                   // Z
-            ];
-            
-            // 게임판 초기화
-            function initBoard() {
-                board = Array.from({ length: rows }, () => Array(cols).fill(0));
-            }
-            
-            // 새 조각 생성
-            function newPiece() {
-                const pieceType = Math.floor(Math.random() * 7) + 1;
-                currentPiece = {
-                    type: pieceType,
-                    matrix: pieces[pieceType],
-                    pos: { x: Math.floor(cols / 2) - 1, y: 0 },
-                    color: colors[pieceType]
-                };
-                
-                // 게임 오버 체크
-                if (collision(currentPiece)) {
-                    gameOver();
-                }
-            }
-            
-            // 충돌 감지
-            function collision(piece) {
-                const { matrix, pos } = piece;
-                for (let y = 0; y < matrix.length; y++) {
-                    for (let x = 0; x < matrix[y].length; x++) {
-                        if (matrix[y][x] !== 0) {
-                            const boardX = pos.x + x;
-                            const boardY = pos.y + y;
-                            
-                            if (boardX < 0 || boardX >= cols || boardY >= rows) {
-                                return true;
-                            }
-                            
-                            if (boardY >= 0 && board[boardY][boardX]) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-                return false;
-            }
-            
-            // 조각을 게임판에 병합
-            function merge(piece) {
-                const { matrix, pos } = piece;
-                for (let y = 0; y < matrix.length; y++) {
-                    for (let x = 0; x < matrix[y].length; x++) {
-                        if (matrix[y][x] !== 0) {
-                            const boardY = pos.y + y;
-                            if (boardY >= 0) {
-                                board[boardY][pos.x + x] = piece.type;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            // 완성된 줄 제거
-            function clearLines() {
-                let linesCleared = 0;
-                
-                for (let y = rows - 1; y >= 0; y--) {
-                    if (board[y].every(cell => cell !== 0)) {
-                        const row = board.splice(y, 1)[0];
-                        board.unshift(Array(cols).fill(0));
-                        linesCleared++;
-                        y++; // 같은 줄을 다시 체크
-                    }
-                }
-                
-                if (linesCleared > 0) {
-                    score += linesCleared * 100;
-                    scoreElement.textContent = `점수: ${score}`;
-                }
-            }
-            
-            // 조각 회전
-            function rotate(piece) {
-                const matrix = piece.matrix;
-                const N = matrix.length;
-                const rotated = Array.from({ length: N }, () => Array(N).fill(0));
-                
-                for (let y = 0; y < N; y++) {
-                    for (let x = 0; x < N; x++) {
-                        rotated[x][N - 1 - y] = matrix[y][x];
-                    }
-                }
-                
-                piece.matrix = rotated;
-                
-                // 회전 후 충돌이 있으면 원래대로 돌려놓음
-                if (collision(piece)) {
-                    piece.matrix = matrix;
-                }
-            }
-            
-            // 게임판과 현재 조각 그리기
-            function draw() {
-                ctx.fillStyle = '#f0f0f0';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                
-                // 게임판 그리기
-                for (let y = 0; y < rows; y++) {
-                    for (let x = 0; x < cols; x++) {
-                        if (board[y][x]) {
-                            ctx.fillStyle = colors[board[y][x]];
-                            ctx.fillRect(x * blockSize, y * blockSize, blockSize, blockSize);
-                            ctx.strokeStyle = '#333';
-                            ctx.strokeRect(x * blockSize, y * blockSize, blockSize, blockSize);
-                        }
-                    }
-                }
-                
-                // 현재 조각 그리기
-                if (currentPiece) {
-                    const { matrix, pos } = currentPiece;
-                    for (let y = 0; y < matrix.length; y++) {
-                        for (let x = 0; x < matrix[y].length; x++) {
-                            if (matrix[y][x] !== 0) {
-                                ctx.fillStyle = currentPiece.color;
-                                ctx.fillRect((pos.x + x) * blockSize, (pos.y + y) * blockSize, blockSize, blockSize);
-                                ctx.strokeStyle = '#333';
-                                ctx.strokeRect((pos.x + x) * blockSize, (pos.y + y) * blockSize, blockSize, blockSize);
-                            }
-                        }
-                    }
-                }
-                
-                // 게임 오버 메시지
-                if (isGameOver) {
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.font = '20px Arial';
-                    ctx.fillStyle = 'white';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('게임 오버!', canvas.width / 2, canvas.height / 2);
-                    ctx.fillText(`최종 점수: ${score}`, canvas.width / 2, canvas.height / 2 + 30);
-                }
-                
-                // 일시정지 메시지
-                if (isPaused && !isGameOver) {
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.font = '20px Arial';
-                    ctx.fillStyle = 'white';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('일시정지', canvas.width / 2, canvas.height / 2);
-                }
-            }
-            
-            // 게임 업데이트
-            function update() {
-                if (isPaused || isGameOver) return;
-                
-                currentPiece.pos.y++;
-                
-                if (collision(currentPiece)) {
-                    currentPiece.pos.y--;
-                    merge(currentPiece);
-                    clearLines();
-                    newPiece();
-                }
-                
-                draw();
-            }
-            
-            // 게임 오버
-            function gameOver() {
-                isGameOver = true;
-                clearInterval(gameInterval);
-                draw();
-            }
-            
-            // 게임 시작
-            function startGame() {
-                if (gameInterval) {
-                    clearInterval(gameInterval);
-                }
-                
-                initBoard();
-                score = 0;
-                scoreElement.textContent = `점수: ${score}`;
-                isGameOver = false;
-                isPaused = false;
-                newPiece();
-                draw();
-                
-                gameInterval = setInterval(update, 500);
-            }
-            
-            // 게임 일시정지/재개
-            function togglePause() {
-                if (isGameOver) return;
-                
-                isPaused = !isPaused;
-                draw();
-            }
-            
-            // 키보드 이벤트
-            document.addEventListener('keydown', function(e) {
-                if (isGameOver || isPaused) return;
-                
-                switch (e.keyCode) {
-                    case 37: // 왼쪽 화살표
-                        currentPiece.pos.x--;
-                        if (collision(currentPiece)) {
-                            currentPiece.pos.x++;
-                        }
-                        break;
-                    case 39: // 오른쪽 화살표
-                        currentPiece.pos.x++;
-                        if (collision(currentPiece)) {
-                            currentPiece.pos.x--;
-                        }
-                        break;
-                    case 40: // 아래 화살표
-                        currentPiece.pos.y++;
-                        if (collision(currentPiece)) {
-                            currentPiece.pos.y--;
-                            merge(currentPiece);
-                            clearLines();
-                            newPiece();
-                        }
-                        break;
-                    case 38: // 위 화살표 (회전)
-                        rotate(currentPiece);
-                        break;
-                }
-                
-                draw();
-            });
-            
-            // 버튼 이벤트
-            startButton.addEventListener('click', startGame);
-            pauseButton.addEventListener('click', togglePause);
-            
-            // 초기 화면 그리기
-            draw();
-            
-            // 폼 제출 방지
-            document.getElementById('contact-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('메시지가 성공적으로 전송되었습니다! (실제로는 전송되지 않습니다)');
-                this.reset();
-            });
+        // 🌙 다크 모드 토글
+        const toggleBtn = document.getElementById('toggle-dark');
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ 라이트모드' : '🌙 다크모드';
         });
+
+        // 🏆 점수 랭킹 기능
+        let scores = [];
+
+        document.getElementById('score-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('player-name').value.trim();
+            const score = parseInt(document.getElementById('player-score').value);
+
+            if (!name || isNaN(score)) return;
+
+            scores.push({ name, score });
+            scores.sort((a, b) => b.score - a.score);
+
+            renderRanking();
+
+            this.reset();
+        });
+
+        function renderRanking() {
+            const tbody = document.getElementById('ranking-table');
+            tbody.innerHTML = '';
+            scores.forEach((player, idx) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${idx + 1}</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${player.name}</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${player.score}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
     </script>
 </body>
 </html>
