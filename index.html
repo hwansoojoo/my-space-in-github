@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나의 대학생활 공간</title>
     <style>
+        body.dark-mode {
+        background-color: #121212;
+        color: #f1f1f1;
+    }
+    body.dark-mode nav, body.dark-mode .card {
+        background-color: #1e1e1e;
+        color: #f1f1f1;
+    }
+    body.dark-mode .card-header {
+        background: linear-gradient(135deg, #444, #666);
+    }
+    body.dark-mode a {
+        color: #ffd166;
+    }
+    body.dark-mode nav ul li a:hover {
+        background-color: #666;
+        color: white;
+    }
         :root {
             --primary: #6667AB;
             --secondary: #F78CA0;
@@ -238,6 +256,9 @@
                 <li><a href="#games">게임</a></li>
                 <li><a href="#gallery">갤러리</a></li>
                 <li><a href="#contact">연락처</a></li>
+                <li>
+                    <button id="toggle-dark" class="button" style="padding: 6px 12px; font-size: 0.9rem;">🌙 다크모드</button>
+                </li>
             </ul>
         </nav>
         
@@ -253,9 +274,10 @@
                         <h3>자기소개</h3>
                     </div>
                     <div class="card-body">
-                        <p>안녕하세요! 저는 대학에서 [학과]를 전공하고 있는 학생입니다. 
-                        취미는 [취미]이고, [기타 소개]에 관심이 많습니다.</p>
-                        <p>이 웹사이트는 제 생각과 경험을 공유하고 친구들과 소통하기 위해 만들었어요.</p>
+                        <p>안녕하세요! 저는 대학에서 전자공학과를 전공하고 있는 주환수랍니다~ 
+                        인생 어떻게 살지 관심이 많은데요, 20대 청춘이 매우 아깝습니다... 세상이 밉다...</p>
+                        <p>이 웹사이트는 제 생각과 경험을 공유하고 친구들과 소통하기 위해 만들었어요. 
+                        다들 게임 한번씩 즐기고 랭킹 1위를 달성해보세요!!</p>
                     </div>
                 </div>
                 
@@ -278,7 +300,16 @@
                 </div>
             </div>
         </section>
-        
+        <section id="ranking">
+            <h2>친구들 랭킹</h2>
+            <div class="card">
+                    <div class="card-body">
+                        <ol id="ranking-list">
+                <!-- 예시 데이터 -->
+                        </ol>
+                </div>
+            </div>
+        </section>
         <section id="news">
             <h2>최신 소식</h2>
             <div class="card-grid">
@@ -338,30 +369,30 @@
         </section>
         
         <section id="gallery">
-            <h2>갤러리</h2>
-            <p>일상과 특별한 순간들</p>
-            
-            <div class="gallery">
-                <div class="gallery-item">
-                    <img src="/api/placeholder/200/200" alt="학교 캠퍼스">
-                </div>
-                <div class="gallery-item">
-                    <img src="/api/placeholder/200/200" alt="친구들과 함께">
-                </div>
-                <div class="gallery-item">
-                    <img src="/api/placeholder/200/200" alt="학과 행사">
-                </div>
-                <div class="gallery-item">
-                    <img src="/api/placeholder/200/200" alt="취미 활동">
-                </div>
-                <div class="gallery-item">
-                    <img src="/api/placeholder/200/200" alt="여행 사진">
-                </div>
-                <div class="gallery-item">
-                    <img src="/api/placeholder/200/200" alt="프로젝트 작업">
-                </div>
-            </div>
-        </section>
+    <h2>갤러리</h2>
+    <p>일상과 특별한 순간들</p>
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="https://source.unsplash.com/600x400/?landscape,mountain" alt="웅장한 자연">
+        </div>
+        <div class="gallery-item">
+            <img src="https://source.unsplash.com/600x400/?forest,nature" alt="초록 자연">
+        </div>
+        <div class="gallery-item">
+            <img src="https://source.unsplash.com/600x400/?city,night" alt="도시 야경">
+        </div>
+        <div class="gallery-item">
+            <img src="https://source.unsplash.com/600x400/?party,friends" alt="친구들과의 파티">
+        </div>
+        <div class="gallery-item">
+            <img src="https://source.unsplash.com/600x400/?celebration" alt="파티 순간">
+        </div>
+        <div class="gallery-item">
+            <img src="https://source.unsplash.com/600x400/?library,study" alt="도서관에서 꿈을 위해 공부">
+        </div>
+    </div>
+</section>
+
         
         <section id="contact">
             <h2>연락하기</h2>
@@ -403,6 +434,35 @@
     </footer>
 
     <script>
+         // 다크 모드 토글
+    const toggleBtn = document.getElementById('toggle-dark');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ 라이트모드' : '🌙 다크모드';
+    });
+
+    // 간단한 랭킹 시스템 (샘플용)
+    const sampleRanks = [
+        { name: '지민', score: 1500 },
+        { name: '현우', score: 1200 },
+        { name: '수빈', score: 1000 },
+        { name: '예린', score: 800 },
+        { name: '태윤', score: 500 }
+    ];
+
+    const crownEmoji = [
+        '👑 (금왕관)',
+        '🥈 (은왕관)',
+        '🥉 (동왕관)'
+    ];
+
+    const listEl = document.getElementById('ranking-list');
+    sampleRanks.sort((a, b) => b.score - a.score).forEach((user, index) => {
+        const crown = crownEmoji[index] || '';
+        const li = document.createElement('li');
+        li.innerHTML = `${index + 1}등 ${crown} ${user.name} - ${user.score}점`;
+        listEl.appendChild(li);
+    });
         // 테트리스 게임 구현
         document.addEventListener('DOMContentLoaded', function() {
             const canvas = document.getElementById('game-canvas');
