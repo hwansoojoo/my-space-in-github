@@ -367,28 +367,6 @@
                 </div>
             </div>
         </section>
-  <section id="ranking">
-        <h2>게임 점수 랭킹</h2>
-        <div class="card">
-            <div class="card-body">
-                <form id="score-form" style="margin-bottom: 1rem;">
-                    <input type="text" id="player-name" placeholder="이름 입력" style="padding: 6px; border: 1px solid #ccc; border-radius: 4px;">
-                    <input type="number" id="player-score" placeholder="점수 입력" style="padding: 6px; border: 1px solid #ccc; border-radius: 4px; width: 100px;">
-                    <button type="submit" class="button">등록</button>
-                </form>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr style="text-align: left;">
-                            <th style="padding: 8px; border-bottom: 2px solid #ccc;">등수</th>
-                            <th style="padding: 8px; border-bottom: 2px solid #ccc;">이름</th>
-                            <th style="padding: 8px; border-bottom: 2px solid #ccc;">점수</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ranking-table"></tbody>
-                </table>
-            </div>
-        </div>
-    </section>
         
         <section id="gallery">
     <h2>갤러리</h2>
@@ -456,45 +434,35 @@
     </footer>
 
     <script>
-         // 🌙 다크 모드 토글
-        const toggleBtn = document.getElementById('toggle-dark');
-        toggleBtn.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ 라이트모드' : '🌙 다크모드';
-        });
+         // 다크 모드 토글
+    const toggleBtn = document.getElementById('toggle-dark');
+    toggleBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ 라이트모드' : '🌙 다크모드';
+    });
 
-        // 🏆 점수 랭킹 기능
-        let scores = [];
+    // 간단한 랭킹 시스템 (샘플용)
+    const sampleRanks = [
+        { name: '지민', score: 1500 },
+        { name: '현우', score: 1200 },
+        { name: '수빈', score: 1000 },
+        { name: '예린', score: 800 },
+        { name: '태윤', score: 500 }
+    ];
 
-        document.getElementById('score-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+    const crownEmoji = [
+        '👑 (금왕관)',
+        '🥈 (은왕관)',
+        '🥉 (동왕관)'
+    ];
 
-            const name = document.getElementById('player-name').value.trim();
-            const score = parseInt(document.getElementById('player-score').value);
-
-            if (!name || isNaN(score)) return;
-
-            scores.push({ name, score });
-            scores.sort((a, b) => b.score - a.score);
-
-            renderRanking();
-
-            this.reset();
-        });
-
-        function renderRanking() {
-            const tbody = document.getElementById('ranking-table');
-            tbody.innerHTML = '';
-            scores.forEach((player, idx) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${idx + 1}</td>
-                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${player.name}</td>
-                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${player.score}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
+    const listEl = document.getElementById('ranking-list');
+    sampleRanks.sort((a, b) => b.score - a.score).forEach((user, index) => {
+        const crown = crownEmoji[index] || '';
+        const li = document.createElement('li');
+        li.innerHTML = ${index + 1}등 ${crown} ${user.name} - ${user.score}점;
+        listEl.appendChild(li);
+    });
         // 테트리스 게임 구현
         document.addEventListener('DOMContentLoaded', function() {
             const canvas = document.getElementById('game-canvas');
