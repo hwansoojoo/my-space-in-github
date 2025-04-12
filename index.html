@@ -523,15 +523,9 @@
             toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ 라이트모드' : '🌙 다크모드';
         });
 
-        // 테트리스 랭킹 시스템 - 로컬 스토리지에서 불러오거나 기본값 설정
-        let tetrisRankings = [
-            { name: '지민', score: 1500 },
-            { name: '현우', score: 1200 },
-            { name: '수빈', score: 1000 },
-            { name: '예린', score: 800 },
-            { name: '태윤', score: 500 }
-        ];
-
+       
+      // 테트리스 랭킹 시스템 - 로컬 스토리지에서 불러오기
+        let tetrisRankings = JSON.parse(localStorage.getItem('tetrisRankings')) || [];
         // 랭킹 표시 함수
         function displayRankings() {
             const rankingList = document.getElementById('tetris-ranking');
@@ -684,7 +678,7 @@
                 
                 if (linesCleared > 0) {
                     score += linesCleared * 100;
-                    scoreElement.textContent = 점수: ${score};
+                    scoreElement.textContent = '점수: ${score}';
                 }
             }
             
@@ -748,7 +742,7 @@
                     ctx.fillStyle = 'white';
                     ctx.textAlign = 'center';
                     ctx.fillText('게임 오버!', canvas.width / 2, canvas.height / 2);
-                    ctx.fillText(최종 점수: ${score}, canvas.width / 2, canvas.height / 2 + 30);
+                    ctx.fillText('최종 점수: ${score}', canvas.width / 2, canvas.height / 2 + 30);
                 }
                 
                 // 일시정지 메시지
@@ -793,7 +787,7 @@
                 
                 initBoard();
                 score = 0;
-                scoreElement.textContent = 점수: ${score};
+                scoreElement.textContent = '점수: ${score}';
                 isGameOver = false;
                 isPaused = false;
                 newPiece();
@@ -847,14 +841,48 @@
             // 버튼 이벤트
             startButton.addEventListener('click', startGame);
             pauseButton.addEventListener('click', togglePause);
-            
+
+// 점수 저장 버튼 이벤트 리스너
+const saveScoreButton = document.getElementById('save-score');
+const playerNameInput = document.getElementById('player-name');
+
+saveScoreButton.addEventListener('click', function() {
+    const playerName = playerNameInput.value.trim();
+    
+    if (!playerName) {
+        alert('닉네임을 입력해주세요!');
+        return;
+    }
+    
+    // 새로운 점수 저장
+    tetrisRankings.push({
+        name: playerName,
+        score: score
+    });
+    
+    // 랭킹 다시 표시
+    displayRankings();
+    
+    // 로컬 스토리지에 랭킹 저장
+    localStorage.setItem('tetrisRankings', JSON.stringify(tetrisRankings));
+    
+    // 버튼 숨기기, 입력창 초기화 및 알림
+    saveScoreButton.style.display = 'none';
+    playerNameInput.value = '';
+    alert('점수가 성공적으로 저장되었습니다!');
+    
+    // 게임 준비 상태로 초기화
+    setTimeout(() => {
+        draw();
+    }, 500);
+});
             // 초기 화면 그리기
             draw();
             
             
             });
         });
-    </script>
+    
 </body>
 </html>
 
