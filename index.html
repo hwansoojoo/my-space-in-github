@@ -6,23 +6,23 @@
     <title>나의 대학생활 공간</title>
     <style>
         body.dark-mode {
-        background-color: #121212;
-        color: #f1f1f1;
-    }
-    body.dark-mode nav, body.dark-mode .card {
-        background-color: #1e1e1e;
-        color: #f1f1f1;
-    }
-    body.dark-mode .card-header {
-        background: linear-gradient(135deg, #444, #666);
-    }
-    body.dark-mode a {
-        color: #ffd166;
-    }
-    body.dark-mode nav ul li a:hover {
-        background-color: #666;
-        color: white;
-    }
+            background-color: #121212;
+            color: #f1f1f1;
+        }
+        body.dark-mode nav, body.dark-mode .card {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+        }
+        body.dark-mode .card-header {
+            background: linear-gradient(135deg, #444, #666);
+        }
+        body.dark-mode a {
+            color: #ffd166;
+        }
+        body.dark-mode nav ul li a:hover {
+            background-color: #666;
+            color: white;
+        }
         :root {
             --primary: #6667AB;
             --secondary: #F78CA0;
@@ -196,13 +196,13 @@
         
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1rem;
             margin: 1rem 0;
         }
         
         .gallery-item {
-            height: 150px;
+            height: 200px;
             background-color: #ddd;
             border-radius: 8px;
             overflow: hidden;
@@ -220,11 +220,60 @@
             transform: scale(1.1);
         }
         
-        /* 테트리스 게임 스타일 */
-        #tetris-score {
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        /* 랭킹 스타일 */
+        .ranking-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .ranking-item:hover {
+            background-color: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .rank-number {
             font-size: 1.2rem;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-right: 10px;
+            width: 30px;
+            text-align: center;
+        }
+        
+        .rank-medal {
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        
+        .rank-name {
+            flex-grow: 1;
+            font-weight: bold;
+        }
+        
+        .rank-score {
+            font-weight: bold;
+            color: var(--primary);
         }
         
         /* 반응형 스타일 */
@@ -236,6 +285,14 @@
             
             nav ul li {
                 margin: 8px 0;
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .gallery-item {
+                height: 150px;
             }
         }
     </style>
@@ -254,6 +311,7 @@
                 <li><a href="#home">홈</a></li>
                 <li><a href="#news">소식</a></li>
                 <li><a href="#games">게임</a></li>
+                <li><a href="#ranking">랭킹</a></li>
                 <li><a href="#gallery">갤러리</a></li>
                 <li><a href="#contact">연락처</a></li>
                 <li>
@@ -300,16 +358,23 @@
                 </div>
             </div>
         </section>
+
         <section id="ranking">
-            <h2>친구들 랭킹</h2>
+            <h2>테트리스 랭킹</h2>
+            <p>친구들의 점수를 확인하고 도전해보세요!</p>
             <div class="card">
-                    <div class="card-body">
-                        <ol id="ranking-list">
-                <!-- 예시 데이터 -->
-                        </ol>
+                <div class="card-header">
+                    <h3>최고 점수</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="ranking-list" id="tetris-ranking">
+                        <!-- 랭킹은 자바스크립트로 동적 생성됩니다 -->
+                    </ul>
+                    <p>당신도 테트리스를 플레이하고 랭킹에 도전해보세요!</p>
                 </div>
             </div>
         </section>
+        
         <section id="news">
             <h2>최신 소식</h2>
             <div class="card-grid">
@@ -365,34 +430,51 @@
                 <div class="game-instructions">
                     <p>← → 키: 좌우 이동 | ↑ 키: 회전 | ↓ 키: 빠르게 내리기</p>
                 </div>
+                <div class="player-info" style="margin-top: 15px;">
+                    <input type="text" id="player-name" placeholder="닉네임 입력" style="padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                    <button class="button" id="save-score" style="display: none;">점수 저장</button>
+                </div>
             </div>
         </section>
         
         <section id="gallery">
-    <h2>갤러리</h2>
-    <p>일상과 특별한 순간들</p>
-    <div class="gallery">
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?landscape,mountain" alt="웅장한 자연">
-        </div>
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?forest,nature" alt="초록 자연">
-        </div>
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?city,night" alt="도시 야경">
-        </div>
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?party,friends" alt="친구들과의 파티">
-        </div>
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?celebration" alt="파티 순간">
-        </div>
-        <div class="gallery-item">
-            <img src="https://source.unsplash.com/600x400/?library,study" alt="도서관에서 꿈을 위해 공부">
-        </div>
-    </div>
-</section>
-
+            <h2>갤러리</h2>
+            <p>일상과 특별한 순간들</p>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/600x400/?campus,university" alt="대학 캠퍼스">
+                    <div class="gallery-caption">캠퍼스 생활</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/600x400/?study,library" alt="도서관 공부">
+                    <div class="gallery-caption">열공 중!</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/600x400/?graduation,ceremony" alt="졸업식">
+                    <div class="gallery-caption">선배 졸업식</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/600x400/?friends,party" alt="친구들과의 파티">
+                    <div class="gallery-caption">MT 단체사진</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/600x400/?coffee,cafe" alt="카페">
+                    <div class="gallery-caption">카페 공부</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/600x400/?coding,computer" alt="코딩 중">
+                    <div class="gallery-caption">프로젝트 작업</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/600x400/?sports,activity" alt="체육활동">
+                    <div class="gallery-caption">체육대회</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/600x400/?food,lunch" alt="학식">
+                    <div class="gallery-caption">맛있는 학식</div>
+                </div>
+            </div>
+        </section>
         
         <section id="contact">
             <h2>연락하기</h2>
@@ -434,35 +516,58 @@
     </footer>
 
     <script>
-         // 다크 모드 토글
-    const toggleBtn = document.getElementById('toggle-dark');
-    toggleBtn.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ 라이트모드' : '🌙 다크모드';
-    });
+        // 다크 모드 토글
+        const toggleBtn = document.getElementById('toggle-dark');
+        toggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️ 라이트모드' : '🌙 다크모드';
+        });
 
-    // 간단한 랭킹 시스템 (샘플용)
-    const sampleRanks = [
-        { name: '지민', score: 1500 },
-        { name: '현우', score: 1200 },
-        { name: '수빈', score: 1000 },
-        { name: '예린', score: 800 },
-        { name: '태윤', score: 500 }
-    ];
+        // 테트리스 랭킹 시스템 - 로컬 스토리지에서 불러오거나 기본값 설정
+        let tetrisRankings = [
+            { name: '지민', score: 1500 },
+            { name: '현우', score: 1200 },
+            { name: '수빈', score: 1000 },
+            { name: '예린', score: 800 },
+            { name: '태윤', score: 500 }
+        ];
 
-    const crownEmoji = [
-        '👑 (금왕관)',
-        '🥈 (은왕관)',
-        '🥉 (동왕관)'
-    ];
+        // 랭킹 표시 함수
+        function displayRankings() {
+            const rankingList = document.getElementById('tetris-ranking');
+            rankingList.innerHTML = '';
+            
+            // 점수별로 내림차순 정렬
+            tetrisRankings.sort((a, b) => b.score - a.score);
+            
+            // 최대 10개만 표시
+            const displayCount = Math.min(tetrisRankings.length, 10);
+            
+            for (let i = 0; i < displayCount; i++) {
+                const player = tetrisRankings[i];
+                const li = document.createElement('li');
+                li.className = 'ranking-item';
+                
+                // 메달 이모지 추가 (1-3등)
+                let medalEmoji = '';
+                if (i === 0) medalEmoji = '👑';      // 1등 금메달
+                else if (i === 1) medalEmoji = '🥈';  // 2등 은메달
+                else if (i === 2) medalEmoji = '🥉';  // 3등 동메달
+                
+                li.innerHTML = `
+                    <span class="rank-number">${i + 1}</span>
+                    <span class="rank-medal">${medalEmoji}</span>
+                    <span class="rank-name">${player.name}</span>
+                    <span class="rank-score">${player.score}점</span>
+                `;
+                
+                rankingList.appendChild(li);
+            }
+        }
 
-    const listEl = document.getElementById('ranking-list');
-    sampleRanks.sort((a, b) => b.score - a.score).forEach((user, index) => {
-        const crown = crownEmoji[index] || '';
-        const li = document.createElement('li');
-        li.innerHTML = ${index + 1}등 ${crown} ${user.name} - ${user.score}점;
-        listEl.appendChild(li);
-    });
+        // 초기 랭킹 표시
+        displayRankings();
+        
         // 테트리스 게임 구현
         document.addEventListener('DOMContentLoaded', function() {
             const canvas = document.getElementById('game-canvas');
@@ -746,13 +851,20 @@
             // 초기 화면 그리기
             draw();
             
-            // 폼 제출 방지
-            document.getElementById('contact-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('메시지가 성공적으로 전송되었습니다! (실제로는 전송되지 않습니다)');
-                this.reset();
+            
             });
         });
+    </script>
+</body>
+</html>
+
+        // 폼 제출 방지
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('메시지가 성공적으로 전송되었습니다! (실제로는 전송되지 않습니다)');
+            this.reset();
+        });
+        
     </script>
 </body>
 </html>
